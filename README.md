@@ -15,14 +15,14 @@ Benchmarking regular...
 Benchmarking stream...
 
 Name              ips        average  deviation         median         99th %
-flow             0.48         2.10 s     ±1.59%         2.11 s         2.13 s
-stream          0.155         6.45 s     ±0.00%         6.45 s         6.45 s
-regular         0.128         7.79 s     ±0.00%         7.79 s         7.79 s
+flow             0.56         1.80 s     ±0.89%         1.80 s         1.81 s
+stream          0.152         6.58 s     ±0.00%         6.58 s         6.58 s
+regular         0.129         7.76 s     ±0.00%         7.76 s         7.76 s
 
 Comparison: 
-flow             0.48
-stream          0.155 - 3.07x slower
-regular         0.128 - 3.70x slower
+flow             0.56
+stream          0.152 - 3.66x slower
+regular         0.129 - 4.32x slower
 ```
 ```elixir
 %Benchee.Suite{
@@ -73,19 +73,19 @@ regular         0.128 - 3.70x slower
       memory_usages: [],
       name: "flow",
       run_time_statistics: %Benchee.Statistics{
-        average: 2103974.6666666665,
-        ips: 0.47529089387007833,
-        maximum: 2133467,
-        median: 2110733.0,
-        minimum: 2067724,
+        average: 1796856.6666666667,
+        ips: 0.5565274173232144,
+        maximum: 1807987,
+        median: 1804052.0,
+        minimum: 1778531,
         mode: nil,
-        percentiles: %{50 => 2110733.0, 99 => 2133467.0},
+        percentiles: %{50 => 1804052.0, 99 => 1807987.0},
         sample_size: 3,
-        std_dev: 33388.498234172395,
-        std_dev_ips: 0.007542509623388683,
-        std_dev_ratio: 0.015869249170699328
+        std_dev: 15991.98550316168,
+        std_dev_ips: 0.00495308198758843,
+        std_dev_ratio: 0.008899978389944855
       },
-      run_times: [2110733, 2067724, 2133467],
+      run_times: [1807987, 1778531, 1804052],
       tag: nil
     },
     %Benchee.Benchmark.Scenario{
@@ -113,19 +113,19 @@ regular         0.128 - 3.70x slower
       memory_usages: [],
       name: "regular",
       run_time_statistics: %Benchee.Statistics{
-        average: 7790050.0,
-        ips: 0.1283688808159126,
-        maximum: 7790050,
-        median: 7790050.0,
-        minimum: 7790050,
+        average: 7757435.0,
+        ips: 0.12890858898592125,
+        maximum: 7757435,
+        median: 7757435.0,
+        minimum: 7757435,
         mode: nil,
-        percentiles: %{50 => 7790050.0, 99 => 7790050.0},
+        percentiles: %{50 => 7757435.0, 99 => 7757435.0},
         sample_size: 1,
         std_dev: 0,
         std_dev_ips: 0.0,
         std_dev_ratio: 0.0
       },
-      run_times: [7790050],
+      run_times: [7757435],
       tag: nil
     },
     %Benchee.Benchmark.Scenario{
@@ -153,19 +153,19 @@ regular         0.128 - 3.70x slower
       memory_usages: [],
       name: "stream",
       run_time_statistics: %Benchee.Statistics{
-        average: 6453393.0,
-        ips: 0.15495724497175362,
-        maximum: 6453393,
-        median: 6453393.0,
-        minimum: 6453393,
+        average: 6580303.0,
+        ips: 0.15196868594044985,
+        maximum: 6580303,
+        median: 6580303.0,
+        minimum: 6580303, 
         mode: nil,
-        percentiles: %{50 => 6453393.0, 99 => 6453393.0},
+        percentiles: %{50 => 6580303.0, 99 => 6580303.0},
         sample_size: 1,
         std_dev: 0,
         std_dev_ips: 0.0,
         std_dev_ratio: 0.0
       },
-      run_times: [6453393],
+      run_times: [6580303],
       tag: nil
     }
   ],
