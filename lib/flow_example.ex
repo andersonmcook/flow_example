@@ -40,9 +40,28 @@ defmodule FlowExample do
   end
 
   @doc """
-  Use Flow to count words in a directory (optimized)
+  Use Flow to count words in a directory, using take_sort
   """
-  def count_words_in_dir_opt(dir) do
+  def count_words_in_dir_take_sort(dir) do
+    dir
+    |> File.ls!()
+    |> Enum.filter(&(Path.extname(&1) === ".txt"))
+    |> Enum.map(&Path.join(dir, &1))
+    |> Enum.map(&File.stream!/1)
+    |> Flow.from_enumerables()
+    |> Flow.flat_map(&String.split(&1, @word))
+    |> Flow.map(&clean/1)
+    |> Flow.filter(&word?/1)
+    |> Flow.partition()
+    |> Flow.reduce(&Map.new/0, &word_count/2)
+    |> Flow.take_sort(20, &by_count/2)
+    |> Enum.to_list()
+  end
+
+  @doc """
+  Use Flow to count words in a directory using an ets table
+  """
+  def count_words_in_dir_ets(dir) do
     parent = self()
 
     dir
