@@ -55,7 +55,7 @@ defmodule FlowExample do
     |> Flow.partition()
     |> Flow.reduce(&Map.new/0, &word_count/2)
     |> Flow.take_sort(20, &by_count/2)
-    |> Enum.to_list()
+    |> Enum.at(0)
   end
 
   @doc """
