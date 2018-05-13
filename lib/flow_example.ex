@@ -120,9 +120,9 @@ defmodule FlowExample do
   def count_words_in_dir_stream(dir) do
     dir
     |> File.ls!()
-    |> Enum.filter(&(Path.extname(&1) === ".txt"))
-    |> Enum.map(&Path.join(dir, &1))
-    |> Enum.map(&File.stream!/1)
+    |> Stream.filter(&(Path.extname(&1) === ".txt"))
+    |> Stream.map(&Path.join(dir, &1))
+    |> Stream.map(&File.stream!/1)
     |> Stream.concat()
     |> Stream.flat_map(&String.split(&1, @not_word))
     |> Stream.map(&clean/1)
