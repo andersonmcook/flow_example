@@ -1,7 +1,7 @@
 defmodule FlowExample do
   @moduledoc false
 
-  @word ~r/\W/
+  @not_word ~r/\W/
 
   @doc """
   """
@@ -9,7 +9,7 @@ defmodule FlowExample do
     file_path
     |> File.stream!()
     |> Flow.from_enumerable()
-    |> Flow.flat_map(&String.split(&1, @word))
+    |> Flow.flat_map(&String.split(&1, @not_word))
     |> Flow.map(&clean/1)
     |> Flow.filter(&word?/1)
     |> Flow.partition()
@@ -29,7 +29,7 @@ defmodule FlowExample do
     |> Enum.map(&Path.join(dir, &1))
     |> Enum.map(&File.stream!/1)
     |> Flow.from_enumerables()
-    |> Flow.flat_map(&String.split(&1, @word))
+    |> Flow.flat_map(&String.split(&1, @not_word))
     |> Flow.map(&clean/1)
     |> Flow.filter(&word?/1)
     |> Flow.partition()
@@ -49,7 +49,7 @@ defmodule FlowExample do
     |> Enum.map(&Path.join(dir, &1))
     |> Enum.map(&File.stream!/1)
     |> Flow.from_enumerables()
-    |> Flow.flat_map(&String.split(&1, @word))
+    |> Flow.flat_map(&String.split(&1, @not_word))
     |> Flow.map(&clean/1)
     |> Flow.filter(&word?/1)
     |> Flow.partition()
@@ -70,7 +70,7 @@ defmodule FlowExample do
     |> Enum.map(&Path.join(dir, &1))
     |> Enum.map(&File.stream!(&1, read_ahead: 100_000))
     |> Flow.from_enumerables()
-    |> Flow.flat_map(&String.split(&1, @word))
+    |> Flow.flat_map(&String.split(&1, @not_word))
     |> Flow.map(&clean/1)
     |> Flow.filter(&word?/1)
     |> Flow.partition()
@@ -104,7 +104,7 @@ defmodule FlowExample do
     |> Enum.filter(&(Path.extname(&1) === ".txt"))
     |> Enum.map(&Path.join(dir, &1))
     |> Enum.map(&File.read!/1)
-    |> Enum.flat_map(&String.split(&1, @word))
+    |> Enum.flat_map(&String.split(&1, @not_word))
     |> Enum.map(&clean/1)
     |> Enum.filter(&word?/1)
     |> Enum.reduce(%{}, &word_count/2)
@@ -123,7 +123,7 @@ defmodule FlowExample do
     |> Enum.map(&Path.join(dir, &1))
     |> Enum.map(&File.stream!/1)
     |> Stream.concat()
-    |> Stream.flat_map(&String.split(&1, @word))
+    |> Stream.flat_map(&String.split(&1, @not_word))
     |> Stream.map(&clean/1)
     |> Stream.filter(&word?/1)
     |> Enum.reduce(%{}, &word_count/2)
@@ -135,7 +135,7 @@ defmodule FlowExample do
   def count_words_no_flow(file_path) do
     file_path
     |> File.read!()
-    |> String.split(~r/\W/)
+    |> String.split(@not_word)
     |> Enum.map(&clean/1)
     |> Enum.filter(&word?/1)
     |> Enum.reduce(%{}, &word_count/2)
@@ -148,7 +148,7 @@ defmodule FlowExample do
     file_path
     |> File.stream!()
     |> Flow.from_enumerable()
-    |> Flow.flat_map(&String.split(&1, @word))
+    |> Flow.flat_map(&String.split(&1, @not_word))
     |> Flow.map(&clean/1)
     |> Flow.filter(&word?/1)
     |> Flow.partition()
