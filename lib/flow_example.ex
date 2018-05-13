@@ -1,7 +1,8 @@
 defmodule FlowExample do
   @moduledoc false
 
-  @not_word ~r/\W/
+  @not_word ~r/[^\w'-]+/
+  @num 20
 
   @doc """
   """
@@ -11,12 +12,12 @@ defmodule FlowExample do
     |> Flow.from_enumerable()
     |> Flow.flat_map(&String.split(&1, @not_word))
     |> Flow.map(&clean/1)
-    |> Flow.filter(&word?/1)
+    |> Flow.filter(&not_empty/1)
     |> Flow.partition()
     |> Flow.reduce(&Map.new/0, &word_count/2)
     |> Enum.to_list()
     |> Enum.sort(&by_count/2)
-    |> Enum.take(20)
+    |> Enum.take(@num)
   end
 
   @doc """
@@ -31,12 +32,12 @@ defmodule FlowExample do
     |> Flow.from_enumerables()
     |> Flow.flat_map(&String.split(&1, @not_word))
     |> Flow.map(&clean/1)
-    |> Flow.filter(&word?/1)
+    |> Flow.filter(&not_empty/1)
     |> Flow.partition()
     |> Flow.reduce(&Map.new/0, &word_count/2)
     |> Enum.to_list()
     |> Enum.sort(&by_count/2)
-    |> Enum.take(20)
+    |> Enum.take(@num)
   end
 
   @doc """
@@ -51,10 +52,10 @@ defmodule FlowExample do
     |> Flow.from_enumerables()
     |> Flow.flat_map(&String.split(&1, @not_word))
     |> Flow.map(&clean/1)
-    |> Flow.filter(&word?/1)
+    |> Flow.filter(&not_empty/1)
     |> Flow.partition()
     |> Flow.reduce(&Map.new/0, &word_count/2)
-    |> Flow.take_sort(20, &by_count/2)
+    |> Flow.take_sort(@num, &by_count/2)
     |> Enum.at(0)
   end
 
@@ -72,13 +73,13 @@ defmodule FlowExample do
     |> Flow.from_enumerables()
     |> Flow.flat_map(&String.split(&1, @not_word))
     |> Flow.map(&clean/1)
-    |> Flow.filter(&word?/1)
+    |> Flow.filter(&not_empty/1)
     |> Flow.partition()
     |> Flow.reduce(&create_table/0, &update_table/2)
     |> Flow.map_state(&transfer_and_select(&1, parent))
     |> Enum.to_list()
     |> Enum.sort(&by_count/2)
-    |> Enum.take(20)
+    |> Enum.take(@num)
   end
 
   defp create_table do
@@ -98,7 +99,7 @@ defmodule FlowExample do
   @doc """
   Use Enum to count words in a directory
   """
-  def count_words_in_dir_reg(dir) do
+  def count_words_in_dir_enum(dir) do
     dir
     |> File.ls!()
     |> Enum.filter(&(Path.extname(&1) === ".txt"))
@@ -106,11 +107,11 @@ defmodule FlowExample do
     |> Enum.map(&File.read!/1)
     |> Enum.flat_map(&String.split(&1, @not_word))
     |> Enum.map(&clean/1)
-    |> Enum.filter(&word?/1)
+    |> Enum.filter(&not_empty/1)
     |> Enum.reduce(%{}, &word_count/2)
     |> Enum.to_list()
     |> Enum.sort(&by_count/2)
-    |> Enum.take(20)
+    |> Enum.take(@num)
   end
 
   @doc """
@@ -125,11 +126,11 @@ defmodule FlowExample do
     |> Stream.concat()
     |> Stream.flat_map(&String.split(&1, @not_word))
     |> Stream.map(&clean/1)
-    |> Stream.filter(&word?/1)
+    |> Stream.filter(&not_empty/1)
     |> Enum.reduce(%{}, &word_count/2)
     |> Enum.to_list()
     |> Enum.sort(&by_count/2)
-    |> Enum.take(20)
+    |> Enum.take(@num)
   end
 
   def count_words_no_flow(file_path) do
@@ -137,11 +138,11 @@ defmodule FlowExample do
     |> File.read!()
     |> String.split(@not_word)
     |> Enum.map(&clean/1)
-    |> Enum.filter(&word?/1)
+    |> Enum.filter(&not_empty/1)
     |> Enum.reduce(%{}, &word_count/2)
     |> Enum.to_list()
     |> Enum.sort(&by_count/2)
-    |> Enum.take(20)
+    |> Enum.take(@num)
   end
 
   def longest_word(file_path) do
@@ -150,7 +151,7 @@ defmodule FlowExample do
     |> Flow.from_enumerable()
     |> Flow.flat_map(&String.split(&1, @not_word))
     |> Flow.map(&clean/1)
-    |> Flow.filter(&word?/1)
+    |> Flow.filter(&not_empty/1)
     |> Flow.partition()
     |> Flow.reduce(&Map.new/0, &word_count/2)
     |> Enum.to_list()
@@ -158,15 +159,14 @@ defmodule FlowExample do
   end
 
   defp clean(word) do
-    ~r/[^A-z]/
+    ~r/[^A-zÀ-ÿ'-]/
     |> Regex.replace(word, "")
     |> String.trim()
     |> String.downcase()
   end
 
-  defp word?(word) do
-    Regex.match?(~r/\w/, word)
-  end
+  defp not_empty(""), do: false
+  defp not_empty(_), do: true
 
   defp word_count(word, acc) do
     Map.update(acc, word, 1, &(&1 + 1))

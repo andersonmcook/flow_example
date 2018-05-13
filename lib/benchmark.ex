@@ -11,7 +11,7 @@ defmodule Benchmark do
       "flow_take_sort" => fn -> count_words_in_dir_take_sort(dir) end,
       "flow_ets" => fn -> count_words_in_dir_ets(dir) end,
       "stream" => fn -> count_words_in_dir_stream(dir) end,
-      "enum" => fn -> count_words_in_dir_reg(dir) end
+      "enum" => fn -> count_words_in_dir_enum(dir) end
     })
   end
 end
