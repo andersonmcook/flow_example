@@ -22,9 +22,8 @@ defmodule FlowExample.MixProject do
   defp deps do
     [
       {:benchee, "~> 0.11", only: :dev},
-      {:flow, "~> 0.13"}
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
+      {:flow, "~> 0.13"},
+      {:mix_test_watch, "~> 0.6", only: :dev, runtime: false}
     ]
   end
 end
