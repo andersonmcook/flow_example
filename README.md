@@ -1,5 +1,20 @@
 # flow_example
 Flow vs Stream vs Enum
+
+Grab some `.txt`s from [Project Gutenberg](https://www.gutenberg.org/browse/scores/top) and save them to your `txts` directory
+(I'm using Heart of Darkness, Moby Dick, Pride and Prejudice, The Brothers Karamazov, and Ulysses)
+
+* List the files in the directory
+* Filter out files with extensions not .txt
+* Read or stream the files
+* Split the text into words
+* Clean up words
+* Filter out empty strings
+* Create a map where the keys are words and the values are the number of times the word has been used in the text
+* Convert to list of tuples
+* Sort list by word count
+* Get top words
+
 ```bash
 Benchmark suite executing with the following configuration:
 warmup: 2 s

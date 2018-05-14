@@ -10,7 +10,7 @@ defmodule Reader do
     * Create a map where the keys are words and the values are the number of times the word has been used in the text
     * Convert to list of tuples
     * Sort list by word count
-    * Take top n words
+    * Get top words
   """
 
   @not_word ~r/[^\w'-]+/
