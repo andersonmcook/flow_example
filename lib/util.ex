@@ -1,4 +1,19 @@
 defmodule Util do
+
+  @doc """
+  Keep only .txt files
+  """
+  def txt?(file) do
+    Path.extname(file) === ".txt"
+  end
+
+  @doc """
+  Join path with directory
+  """
+  def join_path(file, path) do
+    Path.join(path, file)
+  end
+
   @doc """
   Clean-up words
   """
