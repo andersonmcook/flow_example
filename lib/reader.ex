@@ -20,34 +20,29 @@ defmodule Reader do
   Use Enum
   """
   def enum(dir) do
-
   end
 
   @doc """
   Use Stream
   """
   def stream(dir) do
-
   end
 
   @doc """
   Use Flow
   """
   def flow(dir) do
-
   end
 
   @doc """
   Use Flow and Flow.take_sort/3
   """
   def flow_take_sort(dir) do
-
   end
 
   @doc """
   Use Flow and ETS
   """
   def flow_ets(dir) do
-
   end
 end

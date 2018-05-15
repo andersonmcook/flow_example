@@ -2,7 +2,7 @@ defmodule FlowExampleTest do
   use ExUnit.Case
   doctest FlowExample
 
-  test "all are equal" do
+  test "all FlowExample are equal" do
     dir = "txts"
     expected = [
       {"the", 52151},
@@ -32,5 +32,18 @@ defmodule FlowExampleTest do
     assert FlowExample.count_words_in_dir_ets(dir) === expected
     assert FlowExample.count_words_in_dir_stream(dir) === expected
     assert FlowExample.count_words_in_dir_enum(dir) === expected
+  end
+
+  test "all Reader are equal" do
+    dir = "txts"
+    expected =[
+      # ...
+    ]
+
+    assert Reader.enum(dir) === expected
+    assert Reader.flow(dir) === expected
+    assert Reader.flow_ets(dir) === expected
+    assert Reader.flow_take_sort(dir) === expected
+    assert Reader.stream(dir) === expected
   end
 end

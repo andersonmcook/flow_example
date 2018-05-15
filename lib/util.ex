@@ -1,4 +1,5 @@
 defmodule Util do
+  @moduledoc false
 
   @doc """
   Keep only .txt files
