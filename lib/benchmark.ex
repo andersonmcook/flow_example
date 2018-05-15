@@ -1,7 +1,8 @@
 defmodule Benchmark do
   @moduledoc false
 
-  @dir "txts"
+  @console [extended_statistics: true]
+  @inputs %{dir: "txts"}
   @memory_time 10
   @time 10
 
@@ -15,7 +16,8 @@ defmodule Benchmark do
     }
 
     opts = [
-      inputs: %{dir: @dir},
+      console: @console,
+      inputs: @inputs,
       memory_time: @memory_time,
       time: @time
     ]
@@ -33,7 +35,8 @@ defmodule Benchmark do
     }
 
     opts = [
-      inputs: %{dir: @dir},
+      console: @console,
+      inputs: @inputs,
       memory_time: @memory_time,
       time: @time
     ]
