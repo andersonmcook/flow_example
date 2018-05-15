@@ -28,8 +28,8 @@ defmodule Util do
   @doc """
   Filter out empty strings
   """
-  def not_empty(""), do: false
-  def not_empty(_), do: true
+  def not_empty?(""), do: false
+  def not_empty?(_), do: true
 
   @doc """
   Update map, incrementing value at word key
