@@ -27,11 +27,11 @@ defmodule Benchmark do
 
   def compare do
     tests = %{
-      enum: &Reader.enum/1,
+      # enum: &Reader.enum/1,
       flow: &Reader.flow/1,
-      flow_ets: &Reader.flow_ets/1,
-      flow_take_sort: &Reader.flow_take_sort/1,
-      stream: &Reader.stream/1
+      # flow_ets: &Reader.flow_ets/1,
+      # flow_take_sort: &Reader.flow_take_sort/1,
+      # stream: &Reader.stream/1
     }
 
     opts = [
